@@ -1,0 +1,143 @@
+<!-- nav -->
+<div class="nav">
+  <div class="no-margin row valign-wrapper">
+    <div class="col s4 valign">
+      <h3 class="inline no-margin title">Word.ly</h3>
+    </div>
+    <div class="center col s4">
+      <p class="pointer inline no-margin relative center dropdown">
+        Filter
+        <i class='pointer material-icons menu-button dropdown' id="droparrow">arrow_drop_down</i>
+      </p>
+    </div>
+    <div class="col s4 valign">
+      <ul class="no-margin">
+        <li id="favorites">
+          <i class='pointer material-icons'>favorite</i>
+        </li>
+        <li id="add">
+          <i class='pointer material-icons'>add</i></li>
+      </ul>
+    </div>
+    <div class="message disable" id="buttonInfo">
+      <p>
+        view favorites
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- filter -->
+<section class="filter">
+  <div class="disable center" id="filter">
+    <form action="/filter" method="POST">
+      <p class="filterby inline">
+        <input class="checkbox" type="checkbox" id="adj" value="adjective" name="filter"/>
+        <label for="adj">adjective</label>
+      </p>
+      <p class="filterby inline">
+        <input class="checkbox" type="checkbox" id="noun" value="noun" name="filter"/>
+        <label for="noun">noun</label>
+      </p>
+      <p class="filterby inline">
+        <input class="checkbox" type="checkbox" id="verb" value="verb" name="filter"/>
+        <label for="verb">verb</label>
+      </p>
+      <p class="filterby inline">
+        <input class="checkbox" type="checkbox" id="adverb" value="adverb" name="filter"/>
+        <label for="adverb">adverb</label>
+      </p>
+      <button type="submit" class="inline" name="button" id="filterButton">submit</button>
+    </form>
+  </div>
+</section>
+
+<!-- sidebar -->
+<section>
+  <div class="sidebar disable z-depth-3 col s6 l4">
+    <!-- add word form -->
+    <div class="disable" id="addForm">
+      <h3 class="title">Submit a word.</h3>
+      <div class="add-word">
+        <form class="" action="javascript:void(0);">
+          <div class="">
+            <label for="word">Enter your word:</label>
+            <input type="text"value="" id="word">
+          </div>
+          <div class="">
+            <label for="definition">Add a breif definition:</label>
+            <input type="text"value="" id="definition">
+          </div>
+          <div class="">
+            <label for="wordType">Select word type:</label>
+            <select class="browser-default" id="wordType">
+              <option value="adjective">adjective</option>
+              <option value="adverb">adverb</option>
+              <option value="noun">noun</option>
+              <option value="verb">verb</option>
+            </select>
+          </div>
+          <button id="addButton" disabled="disable">submit</button>
+        </form>
+        <p class="disabled" id="formError">
+
+        </p>
+      </div>
+    </div>
+
+    <!-- view new word -->
+    <div class="disable" id="wordReview">
+      <h3 class="title">You've added:</h3>
+      <div class="card add-card">
+        <div class="card-content">
+          <span class="card-title"></span>
+          <p class="type">
+
+          </p>
+          <p class="definition">
+
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Favorite Words -->
+    <div class='disable' id="favoriteWords">
+      <h3 class="title">Favorites.</h3>
+      <div id="favoriteCards">
+
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- main content -->
+<section>
+  <div class="row" id="cards">
+    <div class="main col s12">
+      {{#each words}}
+      <div class="card-wrapper col s6 l4">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">{{word}}</span>
+            <p class="type">
+              {{type}}
+            </p>
+            <p class="defintion">
+              {{definition}}
+            </p>
+            <div class="like valign-wrapper">
+              <i class="edit pointer material-icons valign" id="{{id}}">edit
+              </i>
+              <i class="heart pointer material-icons valign" id="{{id}}">favorite_border
+              </i>
+              <p class="counter valign">{{likes}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>

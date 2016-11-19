@@ -1,0 +1,39 @@
+<div class="nav">
+  <div class="no-margin row valign-wrapper">
+    <div class="col s12 valign">
+      <h3 class="inline no-margin title">Word.ly</h3>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="row">
+    <div class="col s10 offset-s1 m6 offset-m3 l4 offset-l4 z-depth-3" id="edit">
+      <h3 class="title">Edit a word.</h3>
+      <form action="/edit/update/{{id}}?_method=PUT" method="POST">
+        <div class="">
+          <label for="editWord">Word:</label>
+          <input type="text"value="{{word}}" id="editWord" name="edit">
+        </div>
+        <div class="">
+          <label for="editDefinition">Breif definition:</label>
+          <input type="text"value="{{definition}}" id="editDefinition" name="edit">
+        </div>
+        <div class="">
+          <label for="editWordType">Word type:</label>
+          <select class="browser-default" id="editWordType" name="edit">
+            <option value="adjective">adjective</option>
+            <option value="adverb">adverb</option>
+            <option value="noun">noun</option>
+            <option value="verb">verb</option>
+          </select>
+        </div>
+        <button id="editButton">submit</button>
+      </form>
+      <form action="/edit/delete/{{id}}?_method=DELETE" method="POST" id="deleteForm">
+        <input type="text" value="{{word}}" class="disable" name="delete">
+        <button id="deleteButton">delete word</button>
+      </form>
+    </div>
+  </div>
+</section>
