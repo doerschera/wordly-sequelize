@@ -61,10 +61,15 @@ router.post('/', function(req, res) {
       })
     })
   } else if(data.type == 'like') {
-    model.like({id: data.id}, function() {
-      model.selectType('id', data.id, function(result) {
-        console.log(result);
-        res.send(result[0]);
+    models.Words.findOne({where: {
+      id: data.id
+    }}).then(function(result) {
+      result.increment('likes');
+    }).then(function() {
+      models.Words.findOne({where: {
+        id: data.id
+      }}).then(function(result) {
+        res.send(result);
       })
     })
   } else if(data.type = 'favorites') {
