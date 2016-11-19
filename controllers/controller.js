@@ -28,29 +28,18 @@ router.get('/', function(req, res) {
         var data = {words: randomOrder}
         res.render('index', data);
     })
-  // model.selectAll(function(result) {
-  //   var randomOrder = [];
-  //   randomize(result);
-  //   function randomize(array) {
-  //     var index = Math.floor(Math.random()*array.length);
-  //     randomOrder.push(array[index]);
-  //     result.splice(index, 1);
-  //     if((array.length-1) > 0) {
-  //       randomize(array);
-  //     }
-  //   }
-  //   var data = {words: randomOrder}
-  //   res.render('index', data);
-  // })
 })
 
 router.post('/', function(req, res) {
   var data = req.body
   console.log(data);
   if(data.type == 'validate') {
-    model.selectType('word', data.word, function(result) {
-      console.log(result);
-      if(result.length > 0) {
+    models.Words.findOne({
+      where: {
+        word: data.word
+      }
+    }).then(function(result) {
+      if(result) {
         res.send(false);
       } else {
         res.send(true);
