@@ -46,11 +46,18 @@ router.post('/', function(req, res) {
       }
     })
   } else if(data.type == 'add') {
-    var values = [data.word, data.definition, data.wordType, 0];
-    model.addWord(values, function() {
-      model.selectType('word', data.word, function(result) {
-        console.log(result);
-        res.send(result[0]);
+    models.Words.create({
+      word: data.word,
+      definition: data.definition,
+      type: data.wordType,
+      likes: 0
+    }).then(function() {
+      models.Words.findOne({
+        where: {
+          word: data.word
+        }
+      }).then(function(result) {
+        res.send(result);
       })
     })
   } else if(data.type == 'like') {
