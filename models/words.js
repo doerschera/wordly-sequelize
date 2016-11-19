@@ -1,7 +1,7 @@
 "use strict"
 
-mode.exports = function(sequelize, DataTypes) {
-  var Words = sequelize.defined('Words', {
+module.exports = function(sequelize, DataTypes) {
+  var Words = sequelize.define('Words', {
     word: DataTypes.STRING,
     definition: DataTypes.STRING,
     type:  DataTypes.STRING,
