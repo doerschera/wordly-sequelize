@@ -59,10 +59,12 @@ $(document).ready(function() {
     for(var word in localStorage) {
       favorites.push(word);
     }
+    console.log(favorites);
     var data = {
       'type': 'favorites',
       'favorites': favorites
     }
+    console.log(data);
 
     $.post('/', data).then(function(result) {
       console.log(result);

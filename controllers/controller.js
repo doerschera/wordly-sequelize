@@ -73,8 +73,20 @@ router.post('/', function(req, res) {
       })
     })
   } else if(data.type = 'favorites') {
+    console.log(data);
     var favorites = data['favorites[]'];
-    model.filterMany(favorites, 'id', function(result) {
+    var favoritesAsObjects = [];
+    favorites.forEach(function(wordID) {
+      var obj = {id: parseInt(wordID)};
+      favoritesAsObjects.push(obj);
+    })
+    console.log(favoritesAsObjects);
+
+    models.Words.findAll({
+      where: models.sequelize.or(
+        {id: favorites}
+      )
+    }).then(function(result) {
       res.send(result);
     })
   }
