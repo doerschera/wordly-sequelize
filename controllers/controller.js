@@ -75,12 +75,6 @@ router.post('/', function(req, res) {
   } else if(data.type = 'favorites') {
     console.log(data);
     var favorites = data['favorites[]'];
-    var favoritesAsObjects = [];
-    favorites.forEach(function(wordID) {
-      var obj = {id: parseInt(wordID)};
-      favoritesAsObjects.push(obj);
-    })
-    console.log(favoritesAsObjects);
 
     models.Words.findAll({
       where: models.sequelize.or(
@@ -143,7 +137,7 @@ router.post('/filter', function(req, res) {
 })
 
 router.put('/edit/update/:id', function(req, res) {
-  var id = {id: req.params.id}
+  var id = req.params.id;
   var data = {
     word: req.body.edit[0],
     definition: req.body.edit[1],
@@ -151,8 +145,20 @@ router.put('/edit/update/:id', function(req, res) {
   };
   console.log(id, data);
   message = {word: data.word, action: 'updated'}
-  model.update(data, id, function(response) {
-    res.redirect('/message');
+
+  models.Words.update(
+    {
+      word: req.body.edit[0],
+      definition: req.body.edit[1],
+      type: req.body.edit[2]
+    },
+    {
+      where: {
+        id: id
+      }
+    }
+  ).then(function() {
+    res.render('message', message)
   })
 })
 
