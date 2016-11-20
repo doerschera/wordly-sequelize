@@ -94,14 +94,19 @@ router.post('/', function(req, res) {
 
 router.post('/edit', function (req, res) {
   var id = req.body.id;
-  model.selectType('id', id, function(result) {
-    edit = result[0];
+  models.Words.findOne({
+    where: {
+      id: id
+    }
+  }).then(function(result) {
+    edit = result;
     res.send(true);
   })
 })
 
 router.get('/edit', function(req, res) {
-  res.render('edit', edit);
+  console.log(edit);
+  res.render('edit', edit.dataValues);
 })
 
 router.post('/filter', function(req, res) {
