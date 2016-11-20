@@ -113,37 +113,33 @@ router.post('/filter', function(req, res) {
   var wordType = req.body.filter;
 
   if(typeof wordType != 'string') {
-    model.filterMany(wordType, 'type', function(result) {
-      var randomOrder = [];
-      randomize(result);
-      function randomize(array) {
-        var index = Math.floor(Math.random()*array.length);
-        randomOrder.push(array[index]);
-        result.splice(index, 1);
-        if((array.length-1) > 0) {
-          randomize(array);
-        }
-      }
-      var data = {words: randomOrder}
-      res.render('index', data);
-    })
-    return false;
+    filter(wordType)
+  } else {
+    var singleFilter = [];
+    singleFilter.push(wordType);
+    filter(singleFilter);
   }
 
-  model.selectType('type', wordType, function(result) {
-    var randomOrder = [];
-    randomize(result);
-    function randomize(array) {
-      var index = Math.floor(Math.random()*array.length);
-      randomOrder.push(array[index]);
-      result.splice(index, 1);
-      if((array.length-1) > 0) {
-        randomize(array);
-      }
-    }
-    var data = {words: randomOrder}
-    res.render('index', data);
-  })
+  function filter(data) {
+    models.Words.findAll({
+      where: models.sequelize.or(
+        {type: data}
+      )
+    }).then(function(result) {
+      var randomOrder = [];
+        randomize(result);
+        function randomize(array) {
+          var index = Math.floor(Math.random()*array.length);
+          randomOrder.push(array[index]);
+          result.splice(index, 1);
+          if((array.length-1) > 0) {
+            randomize(array);
+          }
+        }
+        var data = {words: randomOrder}
+        res.render('index', data);
+    })
+  }
 })
 
 router.put('/edit/update/:id', function(req, res) {
