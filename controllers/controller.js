@@ -168,7 +168,12 @@ router.delete('/edit/delete/:id', function(req, res) {
     word: req.body.delete,
     action: 'deleted'
   }
-  model.deleteWord({id: id}, function(result) {
+
+  models.Words.destroy({
+    where: {
+      id: id
+    }
+  }).then(function() {
     res.redirect('/message')
   })
 })
