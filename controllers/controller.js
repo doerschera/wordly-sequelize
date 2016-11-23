@@ -25,7 +25,7 @@ router.get('/', function(req, res) {
             randomize(array);
           }
         }
-        console.log({ randomOrder: randomOrder });
+        console.log({ randomOrder: randomOrder, result: result });
         var data = {words: randomOrder}
         res.render('index', data);
     })
