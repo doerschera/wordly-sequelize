@@ -15,6 +15,7 @@ var message;
 router.get('/', function(req, res) {
   models.Words.findAll({})
     .then(function(result) {
+      console.log({ result: result });
       var randomOrder = [];
         randomize(result);
         function randomize(array) {
@@ -25,7 +26,6 @@ router.get('/', function(req, res) {
             randomize(array);
           }
         }
-        console.log({ randomOrder: randomOrder, result: result });
         var data = {words: randomOrder}
         res.render('index', data);
     })
